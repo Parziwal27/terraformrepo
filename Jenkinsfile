@@ -9,7 +9,7 @@ pipeline {
         stage('Clone repository') {
             steps {
                 // Clone the Git repository
-                git 'https://github.com/Parziwal27/terraform-repo'
+                git 'https://github.com/Parziwal27/terraformrepo'
             }
         }
         stage('Terraform Init') {
