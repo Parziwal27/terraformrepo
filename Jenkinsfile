@@ -2,8 +2,8 @@ pipeline {
     agent any
     environment {
         AWS_ACCOUNT_ID = '381492312721'  // Replace with your AWS Account ID
-        AWS_REGION     = 'us-west-2'     // Replace with your AWS region
-        S3_BUCKET      = 'my-terraform-state-bucket-pz-20231005'  // Replace with your bucket name
+        AWS_REGION     = 'ap-south-1'     // Replace with your AWS region
+        S3_BUCKET      = 'my-terraform-state-bucket-pz-202310056'  // Replace with your bucket name
     }
     stages {
         stage('Clone repository') {

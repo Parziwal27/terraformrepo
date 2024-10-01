@@ -2,19 +2,9 @@ terraform {
   required_version = ">= 1.0.0"
 
   backend "s3" {
-    bucket = "my-terraform-state-bucket-pz-20231005"
+    bucket = "my-terraform-state-bucket-pz-202310056"
     key    = "terraform.tfstate"
-    region = "us-west-2"
+    region = "ap-south-1"
   }
 
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = "us-west-2"
 }

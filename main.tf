@@ -2,7 +2,7 @@
 
 # Specify the AWS provider and region
 provider "aws" {
-  region = "us-east-1" # Change to your preferred region
+  region = "ap-south-1" # Change to your preferred region
 }
 
 # Call the VPC module
@@ -12,7 +12,7 @@ module "vpc" {
   name = "my-vpc"
   cidr = "10.0.0.0/16"
 
-  azs             = ["us-east-1a", "us-east-1b"]
+  azs             = ["ap-south-1a", "ap-south-1b"]
   public_subnets  = ["10.0.1.0/24", "10.0.2.0/24"]
   private_subnets = ["10.0.101.0/24", "10.0.102.0/24"]
 
@@ -23,7 +23,7 @@ module "vpc" {
   }
 }
 
-# Call the Security Group module
+# Call the Security Group module for EC2
 module "ec2_security_group" {
   source = "./modules/security_group"
 
@@ -37,6 +37,8 @@ module "ec2_security_group" {
   tags = {
     Name = "ec2-instance-sg"
   }
+
+  depends_on = [module.vpc]  # Ensure VPC is created first
 }
 
 # Call the EC2 module
@@ -53,7 +55,11 @@ module "ec2" {
   tags = {
     Name = "my-ec2-instance"
   }
+
+  depends_on = [module.ec2_security_group]  # Ensure EC2 security group is created first
 }
+
+# Call the Security Group module for RDS
 module "rds_security_group" {
   source = "./modules/security_group"
 
@@ -67,6 +73,8 @@ module "rds_security_group" {
   tags = {
     Name = "rds-sg"
   }
+
+  depends_on = [module.vpc]  # Ensure VPC is created first
 }
 
 # Call the RDS module
@@ -85,6 +93,8 @@ module "rds" {
   tags = {
     Name = "my-rds-instance"
   }
+
+  depends_on = [module.rds_security_group]  # Ensure RDS security group is created first
 }
 
 # Call the EKS module
@@ -109,4 +119,6 @@ module "eks" {
     Environment = "dev"
     Terraform   = "true"
   }
+
+  depends_on = [module.vpc]  # Ensure VPC is created first
 }
