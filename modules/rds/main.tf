@@ -6,7 +6,7 @@ resource "aws_db_instance" "this" {
   engine               = var.engine  # "mysql" or "postgres"
   engine_version       = var.engine_version
   instance_class       = var.instance_class  # Free Tier eligible t2.micro
-  db_name                 = var.db_name
+  db_name              = var.db_name
   username             = var.username
   password             = var.password
   db_subnet_group_name = aws_db_subnet_group.this.name
