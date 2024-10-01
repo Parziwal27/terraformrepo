@@ -108,12 +108,12 @@ module "eks" {
   subnet_ids               = module.vpc.public_subnets
   control_plane_subnet_ids = module.vpc.private_subnets
 
-  node_group_instance_types = ["t2.micro"] # Free Tier eligible instance type
+  node_group_instance_types = ["t3.medium"] # Free Tier eligible instance type
   node_group_ami_type       = "AL2023_x86_64_STANDARD"
 
   node_group_desired_size = 1
   node_group_min_size     = 1
-  node_group_max_size     = 1
+  node_group_max_size     = 2
 
   tags = {
     Environment = "dev"
